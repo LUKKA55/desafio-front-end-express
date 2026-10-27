@@ -1,0 +1,13 @@
+# Ignorar arquivos de ambiente e senhas
+.env
+config/secrets.yml
+package-lock.json
+
+# Ignorar pastas de dependências e compilação
+node_modules/
+dist/
+build/
+
+# Ignorar arquivos do sistema operacional
+.DS_Store
+Thumbs.db
