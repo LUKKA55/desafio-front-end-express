@@ -1,7 +1,9 @@
 import { createServer } from "./config/express.config.js";
 
-const app = createServer()
+export const runServer = () => {
+	const port = process.env.PORT || 9000;
 
-const port = process.env.PORT ?? 5000;
+	const api = createServer();
 
-app.listen(port, () => console.log("Servidor rodando"));
+	api.listen(port, () => console.log(`server rodando na porta ${port}`));
+};
