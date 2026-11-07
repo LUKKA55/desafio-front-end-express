@@ -9,8 +9,18 @@ export class UserController {
 
         const response = await this.userService.login(userName, password)
 
+        if(!!response.token)
+            return res
+                .status(200)
+                .cookie("token", response.token, {
+                    httpOnly: true,
+                    secure: false,
+                    sameSite: 'strict'
+                })
+                .json({ success: true, message: response.message })
+
         return res
             .status(200)
-            .json(response)
+            .json({ success: false, message: response.message })
     }
 }
