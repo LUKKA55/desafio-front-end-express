@@ -1,4 +1,4 @@
-import { DatabaseConnection } from "../../../main/database.js";
+import { DatabaseConnection } from "../../../api/database.js";
 import { ProfessorEntity } from "../../database/entities/professorEntity.js";
 
 export interface IProfessorDados {

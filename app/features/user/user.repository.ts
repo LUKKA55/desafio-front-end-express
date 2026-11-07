@@ -1,4 +1,4 @@
-import { DatabaseConnection } from "../../../main/database.js";
+import { DatabaseConnection } from "../../../api/database.js";
 import { UserEntity } from "../../database/entities/userEntity.js";
 import type { IUserRepository } from "./interfaces/repository.js";
 
