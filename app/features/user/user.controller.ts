@@ -1,15 +1,19 @@
 import type { Request, Response } from "express";
-import type { IUserService } from "./interfaces/service.js";
+import type { UserService } from "./user.service.js";
+import { responderErro } from "../../shared/erroApi.js";
+import jwt from "jsonwebtoken"
+import { envs } from "../../envs/index.js";
+import { userTokenUtils } from "../utils/userTokenUtils.js";
 
 export class UserController {
-    constructor(private userService : IUserService){}
+    constructor(private userService : UserService){}
 
     async login(req: Request, res: Response) {
-        const { userName, password } = req.body
+        try {
+            const { userName, password } = req.body
 
-        const response = await this.userService.login(userName, password)
+            const response = await this.userService.login(userName, password)
 
-        if(!!response.token)
             return res
                 .status(200)
                 .cookie("token", response.token, {
@@ -19,8 +23,24 @@ export class UserController {
                 })
                 .json({ success: true, message: response.message })
 
-        return res
-            .status(200)
-            .json({ success: false, message: response.message })
+        } catch (erro) {
+            return responderErro(res, erro)
+        }
+    }
+
+     async getUser(req: Request, res: Response) {
+        try {
+            const token = req.cookies.token;
+            const userToken = userTokenUtils(token)
+
+            const user = await this.userService.getUserById(userToken.id)
+            
+            return res
+                .status(200)
+                .json(user)
+
+        } catch (erro) {
+            return responderErro(res, erro)
+        }
     }
 }

@@ -1,4 +1,4 @@
-import { DatabaseConnection } from "../../../main/database.js";
+import { DatabaseConnection } from "../../../api/database.js";
 import { TurmaEntity } from "../../database/entities/turmaEntity.js";
 import { DisciplinaEntity } from "../../database/entities/disciplinaEntity.js";
 import { ProfessorEntity } from "../../database/entities/professorEntity.js";

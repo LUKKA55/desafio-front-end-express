@@ -1,19 +1,17 @@
 import jwt from "jsonwebtoken"
-import type { IUserRepository } from "./interfaces/repository.js";
-import type { IUserService, ILoginModel } from "./interfaces/service.js";
 import { envs } from "../../envs/index.js";
+import type { UserRepository } from "./user.repository.js";
+import { ErroApi } from "../../shared/erroApi.js";
 
-export class UserService implements IUserService {
-    constructor(private userRepository : IUserRepository) {}
+export class UserService {
+    constructor(private userRepository : UserRepository) {}
 
-    async login(userName: string, password: string): Promise<ILoginModel> {
+    async login(userName: string, password: string): Promise<{message: string, token?: string}> {
         const user = await this.userRepository.getLogin(userName, password)
 
         if(!user)
-            return {
-                message: "Usuário não encontrado."
-            }
-
+            throw new ErroApi(404, "Usuário não encontrado.")
+            
         const privateKey = envs.JWT_SECRET
         const token = jwt.sign({ user: userName, id: user.id, perfil: user.perfil }, privateKey, { expiresIn: '24h' });
 
@@ -21,5 +19,14 @@ export class UserService implements IUserService {
             message: "Login realizado com sucesso.",
             token: token
         }
+    }
+
+    async getUserById(id: number) {
+        const user = await this.userRepository.getUserById(id)
+
+        if(!user)
+            throw new ErroApi(404, "Usuário não encontrado.")
+
+        return user
     }
 }
