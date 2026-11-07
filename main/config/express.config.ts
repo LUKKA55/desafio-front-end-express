@@ -2,6 +2,9 @@ import express, {type Response, type Request} from 'express';
 import cors from "cors"
 import cookieParser from "cookie-parser"
 import userRoutes from '../../app/features/user/user.routes.js';
+import disciplinaRoutes from '../../app/features/disciplina/disciplina.routes.js';
+import professorRoutes from '../../app/features/professor/professor.routes.js';
+import turmaRoutes from '../../app/features/turma/turma.routes.js';
 
 export const createServer = () => {
 	const api = express();
@@ -16,4 +19,7 @@ export const createServer = () => {
 
 const makeRoutes = (api: express.Application) => {
     api.use('/user', userRoutes)
+	api.use('/disciplina', disciplinaRoutes)
+	api.use('/professor', professorRoutes)
+	api.use('/turma', turmaRoutes)
 };
