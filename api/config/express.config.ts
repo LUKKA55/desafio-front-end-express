@@ -10,7 +10,7 @@ export const createServer = () => {
 	const api = express();
 
 	api.use(express.json())
-	api.use(cors({credentials: true, origin: /^http:\/\/localhost:\d+$/ }))
+	api.use(cors({credentials: true, origin: [/^http:\/\/localhost:\d+$/, "https://desafio-matriculas.vercel.app"] }))
 	api.use(cookieParser())
 
 	makeRoutes(api);

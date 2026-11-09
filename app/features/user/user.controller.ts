@@ -1,7 +1,6 @@
 import type { Request, Response } from "express";
 import type { UserService } from "./user.service.js";
 import { responderErro } from "../../shared/erroApi.js";
-import jwt from "jsonwebtoken"
 import { envs } from "../../envs/index.js";
 import { userTokenUtils } from "../utils/userTokenUtils.js";
 
@@ -13,13 +12,15 @@ export class UserController {
             const { userName, password } = req.body
 
             const response = await this.userService.login(userName, password)
+            const isProd = envs.NODE_ENV === "production";
 
             return res
                 .status(200)
                 .cookie("token", response.token, {
                     httpOnly: true,
-                    secure: false,
-                    sameSite: 'strict'
+                    secure: isProd,                    
+                    sameSite: isProd ? "none" : "lax",
+                    path: "/",
                 })
                 .json({ success: true, message: response.message })
 
