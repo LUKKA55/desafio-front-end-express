@@ -37,7 +37,11 @@ export class UserController {
             
             return res
                 .status(200)
-                .json(user)
+                .json({
+                    id: user.id,
+                    userName: user.name,
+                    perfil: user.perfil 
+                })
 
         } catch (erro) {
             return responderErro(res, erro)
