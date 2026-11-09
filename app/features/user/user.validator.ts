@@ -1,5 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
+import { responderErro } from '../../shared/erroApi.js';
 
 const createUserSchema = z.object({
     userName: z.string()
@@ -23,6 +24,6 @@ export const validateBody = (req: Request, res: Response, next: NextFunction) =>
 
         return res.status(400).json({ errorMessages: Object.values(erros).flat() });
     } catch (error) {
-        return res.status(400).json({ error: error });
+        return responderErro(res, error)
     }
 };

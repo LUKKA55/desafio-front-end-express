@@ -1,17 +1,18 @@
 import { DatabaseConnection } from "../../../api/database.js";
 import { UserEntity } from "../../database/entities/userEntity.js";
-import type { IUserRepository } from "./interfaces/repository.js";
 
-export class UserRepository implements IUserRepository {
+export class UserRepository {
     constructor() {}
 
-    async getLogin(userName: string, password: string): Promise<UserEntity|null> {
-        const loginUser = await DatabaseConnection.client
-			.getRepository(UserEntity)
-			.findOne({
-				where: { name: userName, password: password },
-			});
+    private get repositorio() {
+        return DatabaseConnection.client.getRepository(UserEntity)
+    } 
 
-        return loginUser
+    async getLogin(userName: string, password: string): Promise<UserEntity|null> {
+        return this.repositorio.findOne({ where: { name: userName, password: password }});
+    }
+
+    async getUserById(id: number) {
+        return this.repositorio.findOne({ where: { id: id }});
     }
 }
