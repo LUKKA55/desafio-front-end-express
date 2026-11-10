@@ -5,6 +5,7 @@ import { envs } from "../../app/envs/index.js";
 import { DisciplinaEntity } from "../../app/database/entities/disciplinaEntity.js";
 import { ProfessorEntity } from "../../app/database/entities/professorEntity.js";
 import { TurmaEntity } from "../../app/database/entities/turmaEntity.js";
+import { AlunoEntity } from "../../app/database/entities/alunoEntity.js";
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -12,5 +13,5 @@ export const AppDataSource = new DataSource({
     driver: pg,
     synchronize: false,
     logging: true,
-    entities: [UserEntity, DisciplinaEntity, ProfessorEntity, TurmaEntity],
+    entities: [UserEntity, DisciplinaEntity, ProfessorEntity, TurmaEntity, AlunoEntity],
 })
