@@ -13,6 +13,7 @@ const userController = new UserController(userService)
 
 userRoutes.get("/", verifyJWT, (req: Request, res: Response) => userController.getUser(req, res))
 userRoutes.post("/login", validateBody, (req: Request, res: Response) => userController.login(req, res))
+userRoutes.post("/logout", verifyJWT, (req: Request, res: Response) => userController.logout(req, res))
 userRoutes.get("/verify-session", verifyJWT, (req: Request, res: Response) => res.status(200).send())
 
 export default userRoutes

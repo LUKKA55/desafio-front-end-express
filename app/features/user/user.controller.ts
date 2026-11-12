@@ -29,7 +29,17 @@ export class UserController {
         }
     }
 
-     async getUser(req: Request, res: Response) {
+    async logout(req: Request, res: Response) {
+        try {
+            return res
+            .clearCookie("token", { path: "/", httpOnly: true, sameSite: "lax", secure: true })
+            .sendStatus(204);
+        } catch (erro) {
+            return responderErro(res, erro)
+        }
+    }
+
+    async getUser(req: Request, res: Response) {
         try {
             const token = req.cookies.token;
             const userToken = userTokenUtils(token)

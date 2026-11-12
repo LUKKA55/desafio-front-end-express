@@ -6,6 +6,7 @@ import disciplinaRoutes from '../../app/features/disciplina/disciplina.routes.js
 import professorRoutes from '../../app/features/professor/professor.routes.js';
 import turmaRoutes from '../../app/features/turma/turma.routes.js';
 import alunoRoutes from '../../app/features/aluno/aluno.routes.js';
+import matriculaRoutes from '../../app/features/matricula/matricula.routes.js';
 
 export const createServer = () => {
 	const api = express();
@@ -24,4 +25,5 @@ const makeRoutes = (api: express.Application) => {
 	api.use('/professor', professorRoutes)
 	api.use('/turma', turmaRoutes)
 	api.use('/aluno', alunoRoutes)
+	api.use('/matricula', matriculaRoutes)
 };

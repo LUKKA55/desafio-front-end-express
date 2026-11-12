@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { envs } from "../../envs/index.js";
 
 export interface IToken {
-    id: number
+    id: string
     perfil: string
     user: string
 }

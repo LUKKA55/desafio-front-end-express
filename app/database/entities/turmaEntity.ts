@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, OneToOne, ManyToOne, JoinColumn } from "typeorm"
+import { DisciplinaEntity } from "./disciplinaEntity.js"
+import { ProfessorEntity } from "./professorEntity.js"
 
 @Entity({ name: "turma" })
 export class TurmaEntity extends BaseEntity {
@@ -22,4 +24,12 @@ export class TurmaEntity extends BaseEntity {
 
     @Column({ type: "varchar", length: 6 })
     semestre!: string
+
+    @ManyToOne(() => DisciplinaEntity)
+    @JoinColumn({ name: "disciplina_id" })
+    disciplina!: DisciplinaEntity
+
+    @ManyToOne(() => ProfessorEntity)
+    @JoinColumn({ name: "professor_id" })
+    professor!: ProfessorEntity
 }

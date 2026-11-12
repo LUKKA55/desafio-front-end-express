@@ -12,7 +12,7 @@ export class UserRepository {
         return this.repositorio.findOne({ where: { name: userName, password: password }});
     }
 
-    async getUserById(id: number) {
+    async getUserById(id: string) {
         return this.repositorio.findOne({ where: { id: id }});
     }
 }
